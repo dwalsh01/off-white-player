@@ -25,4 +25,5 @@ yarn-error.log*
 .vscode
 yarn.lock
 
-firebase/
+/src/firebase/config.ts
+/src/firebase/yt/API-KEY.ts
