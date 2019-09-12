@@ -11,36 +11,44 @@ export const useAuth = () => {
       user
     };
   });
+
   async function getPlaylists(uid: string, playlist?: string) {
     const ref = playlist
       ? db.ref(`users/${uid}/playlists/${playlist}`)
       : db.ref(`users/${uid}/playlists`);
-    return await ref.once('value');
+    const res = await ref.once('value');
+    return res.val();
   }
+  // addToPlaylist adds youtube search result to either an existing playlist
+  // or creates a new playlist and adds said sound to it
   function addToPlaylist(song: search.YouTubeSearchResults, playlist: string) {
+    let success = false;
     if (state.user) {
       const ref = db.ref(`users/${state.user.uid}/playlists`);
-      getPlaylists(state.user.uid)
-        .then(pl => pl.val())
-        .then(vals => {
-          if (!vals) {
-            ref.set({ [playlist]: [song] });
-          } else {
-            let add = true;
-            if (vals[playlist]) {
-              for (let val of vals[playlist]) {
-                if (val.id === song.id) {
-                  add = false;
-                  break;
-                }
+      getPlaylists(state.user.uid).then(pl => {
+        console.log(pl);
+        if (pl === null) {
+          ref.set({ [playlist]: [song] });
+          success = true;
+        } else {
+          let add = true;
+          if (pl[playlist]) {
+            for (let val of pl[playlist]) {
+              if (val.id === song.id) {
+                add = false;
+                break;
               }
             }
-            if (add) {
-              ref.set({ [playlist]: [...vals[playlist], song] });
-            }
           }
-        });
+          if (add) {
+            console.log(pl[playlist]);
+            ref.set({ [playlist]: [...pl[playlist], song] });
+            success = true;
+          }
+        }
+      });
     }
+    return success;
   }
   function onChange(user: any) {
     setState({ initializing: false, user });

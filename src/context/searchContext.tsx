@@ -1,9 +1,9 @@
 import React from 'react';
 
-interface ISearch {
+interface Search {
   term: string;
   setTerm: (val: string) => void;
   handlePress: (val: any) => void;
 }
 
-export const SearchContext = React.createContext<ISearch | null>(null);
+export const SearchContext = React.createContext<Search | null>(null);

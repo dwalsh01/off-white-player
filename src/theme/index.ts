@@ -6,9 +6,9 @@ const {
   keyframes,
   createGlobalStyle,
   ThemeProvider
-} = styledComponents as styledComponents.ThemedStyledComponentsModule<IThemeInterface>;
+} = styledComponents as styledComponents.ThemedStyledComponentsModule<ThemeInterface>;
 
-export interface IThemeInterface {
+export interface ThemeInterface {
   colors: {
     primary: string;
     secondary: string;
@@ -33,7 +33,7 @@ export const theme = {
   },
   fonts: {
     primary: `'Helvetica', 'Arial', 'sans-serif'`,
-    italic: `'Laica', Arial, sans-serif`
+    italic: `monospace`
   }
 };
 

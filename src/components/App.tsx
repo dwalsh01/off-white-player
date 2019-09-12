@@ -10,9 +10,9 @@ import { searchYT } from '../firebase/yt/opts';
 import { SearchContext } from '../context/searchContext';
 
 const App: React.FC = () => {
-  const { state } = useAuth();
+  const { state, addToPlaylist } = useAuth();
   const [term, setTerm] = React.useState('');
-  const [searchVal, setSearchVal] = React.useState('');
+  const [searchVal, setSearchVal] = React.useState('tash sultana');
   const [results, setResults] = React.useState<[] | YouTubeSearchResults[]>([]);
   const [isSearching, setIsSearching] = React.useState(false);
   const handlePress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -24,9 +24,9 @@ const App: React.FC = () => {
     }
   };
   React.useEffect(() => {
-    setIsSearching(true);
     if (searchVal.length !== 0) {
-      searchYT({ term: searchVal }).then(resp => {
+      setIsSearching(true);
+      searchYT({ term: searchVal, maxResults: 10 }).then(resp => {
         setResults(resp);
       });
     }
@@ -49,7 +49,8 @@ const App: React.FC = () => {
         </SearchContext.Provider>
         <Main>
           {isSearching && <h1>Searching...</h1>}
-          {results.length > 0 && <Results results={results} />}
+          {state.user ? state.user.email : 'no user'}
+          {results.length > 0 ? <Results results={results} /> : <h1>USE SEARCH ABOVE</h1>}
         </Main>
         <Footer />
       </React.Fragment>
