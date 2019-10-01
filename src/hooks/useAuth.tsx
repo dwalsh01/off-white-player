@@ -11,7 +11,6 @@ export const useAuth = () => {
       user
     };
   });
-
   async function getPlaylists(uid: string, playlist?: string) {
     const ref = playlist
       ? db.ref(`users/${uid}/playlists/${playlist}`)
@@ -22,14 +21,11 @@ export const useAuth = () => {
   // addToPlaylist adds youtube search result to either an existing playlist
   // or creates a new playlist and adds said sound to it
   function addToPlaylist(song: search.YouTubeSearchResults, playlist: string) {
-    let success = false;
     if (state.user) {
       const ref = db.ref(`users/${state.user.uid}/playlists`);
       getPlaylists(state.user.uid).then(pl => {
-        console.log(pl);
         if (pl === null) {
           ref.set({ [playlist]: [song] });
-          success = true;
         } else {
           let add = true;
           if (pl[playlist]) {
@@ -41,14 +37,11 @@ export const useAuth = () => {
             }
           }
           if (add) {
-            console.log(pl[playlist]);
             ref.set({ [playlist]: [...pl[playlist], song] });
-            success = true;
           }
         }
       });
     }
-    return success;
   }
   function onChange(user: any) {
     setState({ initializing: false, user });

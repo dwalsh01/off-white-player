@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import { UserAuth } from '../context/user-status';
-import { useAuth } from '../hooks/useAuth';
-import { StyledBar } from '../styles/StyledBar';
-import { SearchInput } from './search-input';
+import { UserAuth } from './user-status';
+import { useAuth } from '../../hooks/useAuth';
+import { StyledBar } from '../../styles/StyledBar';
+import { SearchInput } from '../search/search-input';
 
 const useStyles = makeStyles(() =>
   createStyles({

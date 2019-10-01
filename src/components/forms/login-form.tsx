@@ -3,7 +3,7 @@ import { Formik, FormikActions, FormikProps, Form } from 'formik';
 import firebase from 'firebase';
 import { makeStyles, createStyles, Theme, InputBase } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
-import { StyledButton } from '../styles/SButton';
+import { StyledButton } from '../../styles/SButton';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +49,6 @@ export const LoginForm = () => {
         password: ''
       }}
       onSubmit={(values: FormValues, actions: FormikActions<FormValues>) => {
-        console.log(values);
         firebase.auth().signInWithEmailAndPassword(values.email, values.password);
         actions.setSubmitting(false);
       }}

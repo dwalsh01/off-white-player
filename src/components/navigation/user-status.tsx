@@ -1,9 +1,9 @@
 import React from 'react';
-import { UserContext } from './firebase-config';
-import { LoginForm } from '../components/login-form';
+import { UserContext } from '../../context/firebase-config';
+import { LoginForm } from '../forms/login-form';
 import firebase from 'firebase';
-import { StyledUser } from '../styles/StyledUser';
-import { StyledButton } from '../styles/SButton';
+import { StyledUser } from '../../styles/StyledUser';
+import { StyledButton } from '../../styles/SButton';
 
 interface Props {
   user: firebase.User | null;

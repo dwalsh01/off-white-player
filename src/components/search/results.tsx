@@ -3,10 +3,9 @@ import { YouTubeSearchResults } from 'youtube-search';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CardMedia from '@material-ui/core/CardMedia';
-import { SCard } from '../styles/Card';
-// import { CardActions } from '@material-ui/core';
-import { StyledButton } from '../styles/SButton';
-import { useAuth } from '../hooks/useAuth';
+import { SCard } from '../../styles/Card';
+import { StyledButton } from '../../styles/SButton';
+import { useAuth } from '../../hooks/useAuth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 );
-interface Props {
+export interface Props {
   results: (YouTubeSearchResults)[];
 }
 
@@ -44,7 +43,7 @@ export const Results: React.FC<Props> = ({ results }) => {
       <Grid container spacing={3}>
         {results.map((item: YouTubeSearchResults) => {
           return (
-            <Grid item xs={6} sm={3} key={item.id}>
+            <Grid item xs={6} sm={6} md={4} key={item.id}>
               <SCard className={classes.paper}>
                 <div className="card-title">{checkTitle(item.title)}</div>
                 <CardMedia
@@ -59,7 +58,9 @@ export const Results: React.FC<Props> = ({ results }) => {
                     border: '2px dashed #cd2c3b',
                     fontSize: 12
                   }}
-                  onClick={() => addToPlaylist(item, 'Sample 1')}
+                  onClick={() => {
+                    addToPlaylist(item, 'sample playlist');
+                  }}
                 >
                   Add To Playlist
                 </StyledButton>
